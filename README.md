@@ -24,39 +24,49 @@ Example: “What are the side effects of antidepressants?”
 
 
 ## Setup & Run
+### 1.Clone the Repository
 
-### 1. Create `.env` in Doc-bot folder
+```bash 
+git clone https://github.com/Ayush2911ojha/Doc-bot.git
+cd Doc-bot
+
+```
+### 2. In the Doc-bot folder (root), create a .env file:
  
 ```bash
 PINECONE_API_KEY=your_pinecone_api_key
 GEMINI_API_KEY=your_gemini_api_key
 PORT=4000
 ```
-### 2. Run FastAPI Backend
+### 3. Install & Run FastAPI Backend
 
 ```bash
-cd Doc-bot
-python -m venv docBot
-source docBot/Scripts/activate # On Windows use: docBot\Scripts\activate
-pip install fastapi==0.115.4 uvicorn==0.32.0 langchain langchain-pinecone sentence-transformers==4.1.0 requests python-dotenv
-uvicorn app:app --host 0.0.0.0 --port 8080
-
-
+python -m venv venv
+venv\Scripts\activate
 ```
-### 3. Run Gemini Server
+###  Install backend dependencies:
+``` bash
+pip install -r requirements.txt
+```
+### Start the FastAPI backend (from the root directory):
+```bash 
+    
+ uvicorn app:app --host 0.0.0.0 --port 8080
+
+ ```
+
+### 4. Install & Run Gemini Node.js Service
 ```bash
 
-
-cd Doc-bot
 npm install express cors dotenv
 node geminiService.js
 
 ```
 
-### 4. Run React Frontend
+### 5. Run React Frontend
 
 ```bash
-cd medical-chatbot
+cd frontend
 npm install
 npm start
 
@@ -70,3 +80,10 @@ Ask questions like:
 
 
 
+## General Notes
+
+- Ensure that your FastAPI and Node.js servers are running before using the frontend.
+
+- You may need to adjust CORS settings or environment variables for local development.
+
+- The backend expects the medical PDF to be chunked, embedded, and indexed in Pinecone during initial setup.
