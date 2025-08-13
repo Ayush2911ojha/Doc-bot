@@ -8,8 +8,20 @@ Example: “What are the side effects of antidepressants?”
 ## How It Works
 - Frontend: React app (App.jsx) for chatting.
 - Backend: FastAPI (app.py) searches the book & calls AI.
-- AI: Node.js server (your_gemini_server.js) using Gemini API.
-- Search: Pinecone finds relevant text from the medical book.
+- AI Service (Node.js): geminiService.js uses the Gemini API to generate answers based on the retrieved context.
+
+- Vector Search (Pinecone): Stores embeddings (vector representations) of the medical PDF's text chunks for fast similarity search.
+
+- RAG Pipeline:
+
+    - Document Processing – The PDF is split into small chunks (few hundred words) for better search accuracy.
+    - Embeddings – Each chunk is converted into a numeric vector using an embedding model.
+    - Storage – These vectors are stored in Pinecone’s vector database.
+    - Query – When a user asks a question, it is converted to a vector embedding.
+    - Retrieval – Pinecone finds the most similar text chunks from the stored vectors.
+    - Answer Generation – The retrieved chunks are sent to Gemini AI along with the question to create a contextual, accurate answer.
+
+
 
 ## Setup & Run
 
@@ -37,7 +49,7 @@ uvicorn app:app --host 0.0.0.0 --port 8080
 
 cd Doc-bot
 npm install express cors dotenv
-node your_gemini_server.js
+node geminiService.js
 
 ```
 

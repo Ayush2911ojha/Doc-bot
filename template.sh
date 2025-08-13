@@ -11,4 +11,6 @@ touch research/trials.ipynb
 touch requirement.txt
 
 
+
+
 echo "Directory and files creation sucessfully"
